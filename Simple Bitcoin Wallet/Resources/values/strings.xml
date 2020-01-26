@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Simple_Bitcoin_Wallet</string>
     <string name="action_settings">Settings</string>
+  <string name="btn_wallet_new">Load wallet</string>
   <string name="btn_wallet_new">New wallet</string>
   <string name="btn_wallet_recovery">Wallet recovery</string>
   <string name="btn_exit">Exit</string>
