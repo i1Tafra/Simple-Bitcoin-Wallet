@@ -20,36 +20,19 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
     [Serializable]
     public class Wallet
     {
+        //TODO: Make ID unique, restore ExtKey on Load level by just password
         /// <summary>
-        /// Wallet id is private key encrypted with provided password
+        /// Wallet id is private key encrypted with provided password maybe? 
         /// </summary>
         public string Id { get; set; }
 
         ///TODO: Private Key should be stored encryted [NonSerialized]
         public ExtKey RootKey { private get; set; }
 
-        internal Mnemonic Generate(string password)
+        public Wallet(ExtKey _rootKey)
         {
-            var mnemonic = new Mnemonic(Wordlist.English, WordCount.Twelve);
-            RootKey = mnemonic.DeriveExtKey(password);
-            Id = GenerateId(password);
-            
-            return mnemonic;
+            RootKey = _rootKey;
         }
 
-        private string GenerateId(string password)
-        {
-            var privateKeyTestNet = RootKey.PrivateKey.GetBitcoinSecret(Network.TestNet);
-            var unsecureId = $"{privateKeyTestNet.ToString()}{password}";
-            var data = Encoding.ASCII.GetBytes(unsecureId);
-            var secureData = new SHA1CryptoServiceProvider().ComputeHash(data);
-            return System.Text.Encoding.ASCII.GetString(secureData);
-        }
-
-        internal ExtKey Recover(string mnemonics, string password)
-        {
-            var mnemo = new Mnemonic(mnemonics, Wordlist.English);
-            return mnemo.DeriveExtKey(password);
-        }
     }
 }

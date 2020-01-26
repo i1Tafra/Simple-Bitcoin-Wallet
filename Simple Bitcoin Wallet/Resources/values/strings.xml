@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Simple_Bitcoin_Wallet</string>
     <string name="action_settings">Settings</string>
-  <string name="btn_wallet_new">Load wallet</string>
+  <string name="btn_wallet_load">Load wallet</string>
   <string name="btn_wallet_new">New wallet</string>
   <string name="btn_wallet_recovery">Wallet recovery</string>
   <string name="btn_exit">Exit</string>
+  <string name="tw_password">Password:</string>
+  <string name="tw_password_repeat">Repeat password:</string>
+  <string name="hint_insert_password">Insert password</string>
+  <string name="btn_generate">Generate</string>
+  <string name="btn_generate_wallet">Generate wallet</string>
+  <string name="btn_cancel">Cancel</string>
+  <string name="tw_mnemonics">Mnemonics:</string>
+  <string name="tw_mnemonic_warning">Please write displayed mnemonics and store it safely before clicking \"REPEAT MNEMONICS\".\nMnemonics will disapear from your screen at that time.</string>
+  <string name="btn_repeat_mnemonics">Repeat mnemonics</string>
+  <string name="hint_mnemonics">Please insert your mnemonics here</string>
 </resources>
