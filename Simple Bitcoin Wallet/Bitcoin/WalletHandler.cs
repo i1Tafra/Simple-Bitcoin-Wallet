@@ -66,7 +66,7 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
         /// <returns>new Wallet</returns>
         internal static Wallet GenerateWallet(string password, string mnemonic)
         {
-            Wallet = new Wallet(Recover(password, mnemonic));
+            Wallet = new Wallet(Recover(password, mnemonic.Trim()));
             return Wallet;
         }
 

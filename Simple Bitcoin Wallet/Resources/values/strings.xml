@@ -15,4 +15,5 @@
   <string name="tw_mnemonic_warning">Please write displayed mnemonics and store it safely before clicking \"REPEAT MNEMONICS\".\nMnemonics will disapear from your screen at that time.</string>
   <string name="btn_repeat_mnemonics">Repeat mnemonics</string>
   <string name="hint_mnemonics">Please insert your mnemonics here</string>
+  <string name="btn_recover">Recover</string>
 </resources>

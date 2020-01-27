@@ -27,16 +27,29 @@ namespace Simple_Bitcoin_Wallet
 
         private void init()
         {
-            Button btnExit = FindViewById<Button>(Resource.Id.btn_exit);
-            btnExit.Click += (sender, e) =>
+
+            Button btnWalletLoad = FindViewById<Button>(Resource.Id.btn_wallet_load);
+            btnWalletLoad.Click += (sender, e) =>
             {
-                FinishAffinity();
+                Toast.MakeText(ApplicationContext, "To be implemented!", ToastLength.Short).Show();
             };
 
             Button btnWalletNew = FindViewById<Button>(Resource.Id.btn_wallet_new);
             btnWalletNew.Click += (sender, e) =>
             {
                 StartActivity(typeof(CreateWalletActivity));
+            };
+
+            Button btnWalletRecover = FindViewById<Button>(Resource.Id.btn_wallet_recovery);
+            btnWalletRecover.Click += (sender, e) =>
+            {
+                StartActivity(typeof(RecoverWalletActivity));
+            };
+
+            Button btnExit = FindViewById<Button>(Resource.Id.btn_exit);
+            btnExit.Click += (sender, e) =>
+            {
+                FinishAffinity();
             };
         }
 
