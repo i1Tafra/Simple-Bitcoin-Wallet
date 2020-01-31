@@ -21,28 +21,31 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
 {
     public static class WalletHandler
     {
-        private static readonly string rpc_username = "student";
-        private static readonly string rpc_password = "WYVyF5DTERJASAiIiYGg4UkRH";
-        private static readonly string rpc_uri = "http://blockchain.oss.unist.hr:8332";
+        private const string rpc_username = "student";
+        private const string rpc_password = "WYVyF5DTERJASAiIiYGg4UkRH";
+        private const string rpc_uri = "http://blockchain.oss.unist.hr:8332";
 
         public static Wallet Wallet { get; private set; }
 
         internal static Wallet Load(string password)
         {
-            Directory.CreateDirectory("data");
-            var data = Encoding.ASCII.GetBytes(password);
-            var _partialId = new SHA1CryptoServiceProvider().ComputeHash(data);
+            string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "data");
+            Directory.CreateDirectory(path);
+            //var data = Encoding.ASCII.GetBytes(password);
+            //var _partialId = new SHA1CryptoServiceProvider().ComputeHash(data);
             ///TODO: Add support for multiple wallets saved (SHA256(_id + PrivateKey)
 
             IFormatter formatter = new BinaryFormatter();
-            using (var stream = new FileStream(@"data\wallet", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(Path.Combine(path, "wallet"), FileMode.Open, FileAccess.Read))
                 return (Wallet)formatter.Deserialize(stream);       
         }
 
         internal static void Save(Wallet wallet)
         {
+            string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "data");
+            Directory.CreateDirectory(path);
             IFormatter formatter = new BinaryFormatter();
-            using (Stream stream = new FileStream(@"data\wallet", FileMode.Create, FileAccess.Write))
+            using (Stream stream = new FileStream(Path.Combine(path,"wallet"), FileMode.Create, FileAccess.Write))
                 formatter.Serialize(stream, wallet);
         }
 

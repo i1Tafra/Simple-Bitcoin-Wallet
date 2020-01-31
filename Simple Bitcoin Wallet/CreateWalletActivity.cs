@@ -75,10 +75,6 @@ namespace Simple_Bitcoin_Wallet
             _btnCancel.Click += (sender, e) => {
                 StartActivity(typeof(MainActivity));
             };
-
-            //TODO: Remove, just for connection testing
-            var rpcClient = WalletHandler.GetRPC();
-            Toast.MakeText(ApplicationContext, $"Block: {rpcClient.GetBlockCount()}!", ToastLength.Short).Show();
         }
 
         /// <summary>
@@ -109,8 +105,10 @@ namespace Simple_Bitcoin_Wallet
         {
             if (_editMnenonicsList.Text.Equals(_generated_mnemonic.ToString()))
             {
-                WalletHandler.GenerateWallet(_editPass.Text, _editMnenonicsList.Text);
-                //TODO: Go to wallet activity page
+                UserWalletAccesser.Instance.Wallet = WalletHandler.GenerateWallet(_editPass.Text, _editMnenonicsList.Text);
+                UserWalletAccesser.Instance.Wallet.ParsedBlockHeight = (uint) WalletHandler.GetRPC().GetBlockCount();
+                WalletHandler.Save(UserWalletAccesser.Instance.Wallet);
+                StartActivity(typeof(WalletActivity));
             }
             else
             {

@@ -31,7 +31,8 @@ namespace Simple_Bitcoin_Wallet
             Button btnWalletLoad = FindViewById<Button>(Resource.Id.btn_wallet_load);
             btnWalletLoad.Click += (sender, e) =>
             {
-                Toast.MakeText(ApplicationContext, "To be implemented!", ToastLength.Short).Show();
+                UserWalletAccesser.Instance.Wallet = WalletHandler.Load("");
+                StartActivity(typeof(WalletActivity));
             };
 
             Button btnWalletNew = FindViewById<Button>(Resource.Id.btn_wallet_new);

@@ -60,6 +60,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitcoin\UserWalletAccesser.cs" />
     <Compile Include="Bitcoin\WalletHandler.cs" />
     <Compile Include="CreateWalletActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -104,6 +105,11 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.9.8</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="NBitcoin">
       <Version>5.0.13</Version>
     </PackageReference>

@@ -61,8 +61,11 @@ namespace Simple_Bitcoin_Wallet
             {
                 try
                 {
-                    WalletHandler.GenerateWallet(_editPass.Text, _acMnemonics.Text.Replace(',', ' '));
-                    //TODO: Go to wallet activity page
+                    var listMnemonics = _acMnemonics.Text.Split(',').ToList();
+                    listMnemonics.ForEach(x => x = x.Trim());
+                    string mnemonics = String.Join(" ", listMnemonics);
+                    UserWalletAccesser.Instance.Wallet = WalletHandler.GenerateWallet(_editPass.Text, mnemonics);
+                    StartActivity(typeof(WalletActivity));
                 }
                 catch (Exception)
                 {
