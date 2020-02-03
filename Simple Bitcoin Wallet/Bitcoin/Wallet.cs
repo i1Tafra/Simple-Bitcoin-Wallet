@@ -70,6 +70,7 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
         internal List<TransactionInfo> TransactionInfo
         {
             get => _transactionInfo ?? createTransactionInfoList();
+            private set => _transactionInfo = value;
         }
 
         private List<TransactionInfo> _transactionInfo;
@@ -363,6 +364,8 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
             {
                 TransactionInfo.Add(new TransactionInfo((uint)i, null, TransactionType.RECEIVING, null));
             }
+
+            TransactionInfo = TransactionInfo.Distinct().ToList();
         }
 
         /// <summary>

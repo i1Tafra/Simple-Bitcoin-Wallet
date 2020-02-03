@@ -99,8 +99,6 @@ namespace Simple_Bitcoin_Wallet
             _btnBack = FindViewById<Button>(Resource.Id.btn_back);
 
             InitClickEvents();
-
-            _editAddress.Text = "mvVp9s15S6JTeLv98xiBWQVgzvnN6qPSh8";
         }
 
         private void InitClickEvents()

@@ -113,7 +113,8 @@ namespace Simple_Bitcoin_Wallet
             {
                 _status.Text = $@" Block parsed: { UserWalletAccesser.Instance.Wallet.ParsedBlockHeight} / {height}";
             });
-            UserWalletAccesser.Instance.Wallet.ParseBlocks((uint)height);
+            if(UserWalletAccesser.Instance.Wallet.ParsedBlockHeight != height)
+             UserWalletAccesser.Instance.Wallet.ParseBlocks((uint)height);
             
             if (UserWalletAccesser.Instance.Wallet.ParsedBlockHeight == height)
             {
