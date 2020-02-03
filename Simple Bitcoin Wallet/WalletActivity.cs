@@ -7,9 +7,11 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using NBitcoin;
+using NBitcoin.RPC;
 using Simple_Bitcoin_Wallet.Bitcoin;
 using Xamarin.Essentials;
 
@@ -18,58 +20,107 @@ namespace Simple_Bitcoin_Wallet
     [Activity(Label = "WalletActivity")]
     public class WalletActivity : Activity
     {
-        private TextView _twDemo;
-        private TextView _twDemo2;
-        Timer blockHeight;
+        private TextView _twWalletInfo;
+        private TextView _twBlockchainInfo;
+        private TextView _twAddress;
+
+        private Button _btnGenerateAddress;
+        private Button _btnGenerateTransaction;
+        private Button _btnSave;
+
+        private RecyclerView _rwTransations;
+        private RPCClient rpc = WalletHandler.GetRPC();
+        TransactionAdapter transactionAdapter;
+        Timer updateWallet;
         int test = 0;
-        int count = 0;
-        string target;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_wallet);
             if (UserWalletAccesser.Instance.Wallet == null)
-                StartActivity(typeof(MainActivity));
-
-            init();
-        }
-
-        private void init()
-        {
-            _twDemo = FindViewById<TextView>(Resource.Id.tw_demo);
-            _twDemo2 = FindViewById<TextView>(Resource.Id.tw_demo2);
-
-            _twDemo.Text = target = UserWalletAccesser.Instance.Wallet.CreateAddress().ScriptPubKey.ToString();
-            _twDemo2.Text = UserWalletAccesser.Instance.Wallet.ParsedBlockHeight.ToString();
-            blockHeight = new Timer(logBlock, null, 5000, 30000);
-        }
-
-        private void logBlock(object state)
-        {
-            var rpc = WalletHandler.GetRPC();
-            var block = rpc.GetBlock(1664411);
-            
-            block.Transactions.ForEach(t => ParseTransaction(t, target));
-            var height = rpc.GetBlockCount();
-            MainThread.BeginInvokeOnMainThread(() =>
             {
-                _twDemo2.Text = $"{++test} | {height} | {block}";
-            });
+                OnBackPressed();
+                return;
+            }
+
+            Init();
         }
 
-        private void ParseTransaction(Transaction transaction, string target)
+        private void Init()
         {
-            if (transaction.ToString().Contains(target))
-                Console.WriteLine("IMAM GA");
-            Console.WriteLine($"{count++} TR: {transaction.GetHash()}");
-            if (count == 222)
+            _twWalletInfo = FindViewById<TextView>(Resource.Id.tw_wallet_info);
+            _twBlockchainInfo = FindViewById<TextView>(Resource.Id.tw_blockchain_info);
+            _twAddress = FindViewById<TextView>(Resource.Id.tw_address_public);
+
+            _btnGenerateAddress = FindViewById<Button>(Resource.Id.btn_generate_address);
+            _btnGenerateTransaction = FindViewById<Button>(Resource.Id.btn_create_transaction);
+            _btnSave = FindViewById<Button>(Resource.Id.btn_save);
+
+            _rwTransations = FindViewById<RecyclerView>(Resource.Id.rw_transactions);
+
+            _twWalletInfo.Text = UserWalletAccesser.Instance.Wallet.ToString();
+
+            updateWallet = new Timer(Update, null, 1000, 20000);
+
+            _btnGenerateAddress.Click += (sender, e) => {
+               _twAddress.Text = UserWalletAccesser.Instance.Wallet.CreateAddress().ToString();
+            };
+
+
+            _btnSave.Click += (sender, e) => {
+                //UserWalletAccesser.Instance.Wallet.TEST();
+                WalletHandler.Save(UserWalletAccesser.Instance.Wallet);
+            };
+
+            _btnGenerateTransaction.Click += (sender, e) => {
+                StartActivity(typeof(NewTxActivity));
+            };
+
+            _rwTransations.HasFixedSize = true;
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.Vertical, false);
+            _rwTransations.SetLayoutManager(layoutManager);
+
+            transactionAdapter = new TransactionAdapter(UserWalletAccesser.Instance.Wallet.TransactionInfo);
+            _rwTransations.SetAdapter(transactionAdapter);
+
+            transactionAdapter.ItemClick += (sender, e) => {
+                var extra = e as TransactionAdapterClickEventArgs;
+
+                var activity = new Intent(this, typeof(TransactionActivity));
+                activity.PutExtra("positon", extra.Position);
+
+                StartActivity(activity);
+            };
+        }
+
+        /// <summary>
+        /// Update wallet if needed and blockchain
+        /// </summary>
+        /// <param name="state"></param>
+        private void Update(object state)
+        {
+            try
             {
-                if(transaction.ToString().Contains(target))
-                    Console.WriteLine("IMAM GA");
-                else
-                    Console.WriteLine("STA JE OVO?");
+                var height = rpc.GetBlockCount();
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _twWalletInfo.Text = UserWalletAccesser.Instance.Wallet.ToString();
+                    _twBlockchainInfo.Text = $" Current height: {height} times called: {++test}";
+                });
+                UserWalletAccesser.Instance.Wallet.ParseBlocks((uint)height);
+                transactionAdapter.NotifyItemRangeChanged(0, UserWalletAccesser.Instance.Wallet.TransactionInfo.Count);
+                //transactionAdapter.NotifyItemChanged(0);
+            }
+            catch (Exception)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    _twWalletInfo.Text = UserWalletAccesser.Instance.Wallet.ToString();
+                    _twBlockchainInfo.Text = $" Current height: FAILED times called: {++test}";
+                });
             }
         }
+
     }
 }

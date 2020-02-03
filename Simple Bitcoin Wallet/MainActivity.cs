@@ -5,9 +5,9 @@ using Android.Runtime;
 using Android.Widget;
 using System;
 using Simple_Bitcoin_Wallet.Bitcoin;
-using Android.Support.V4.App;
 using Android;
 using Android.Content.PM;
+using Android.Support.V4.App;
 
 namespace Simple_Bitcoin_Wallet
 {
@@ -31,7 +31,11 @@ namespace Simple_Bitcoin_Wallet
             Button btnWalletLoad = FindViewById<Button>(Resource.Id.btn_wallet_load);
             btnWalletLoad.Click += (sender, e) =>
             {
-                UserWalletAccesser.Instance.Wallet = WalletHandler.Load("");
+                var wallet = WalletHandler.Load("");
+                UserWalletAccesser.Instance.Wallet = wallet;
+                //wallet.TEST();
+                //WalletHandler.Save(UserWalletAccesser.Instance.Wallet);
+                //wallet.Init();
                 StartActivity(typeof(WalletActivity));
             };
 

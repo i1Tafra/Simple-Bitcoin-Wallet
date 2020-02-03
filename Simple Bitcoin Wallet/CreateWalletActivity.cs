@@ -107,6 +107,7 @@ namespace Simple_Bitcoin_Wallet
             {
                 UserWalletAccesser.Instance.Wallet = WalletHandler.GenerateWallet(_editPass.Text, _editMnenonicsList.Text);
                 UserWalletAccesser.Instance.Wallet.ParsedBlockHeight = (uint) WalletHandler.GetRPC().GetBlockCount();
+                //WalletHandler.SaveJSON(UserWalletAccesser.Instance.Wallet);
                 WalletHandler.Save(UserWalletAccesser.Instance.Wallet);
                 StartActivity(typeof(WalletActivity));
             }

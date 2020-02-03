@@ -60,14 +60,18 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitcoin\BlockchainExplorer.cs" />
     <Compile Include="Bitcoin\UserWalletAccesser.cs" />
     <Compile Include="Bitcoin\WalletHandler.cs" />
     <Compile Include="CreateWalletActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NewTxActivity.cs" />
     <Compile Include="RecoverWalletActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bitcoin\Wallet.cs" />
+    <Compile Include="TransactionActivity.cs" />
+    <Compile Include="TransactionAdapter.cs" />
     <Compile Include="WalletActivity.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +123,12 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.v4">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <Version>28.0.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +141,26 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_wallet.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\recycler_transactions.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_transaction.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\list_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_tx_new.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

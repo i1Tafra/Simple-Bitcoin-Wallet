@@ -69,4 +69,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tw_mnemonic" />
 
+        <TextView
+        android:id="@+id/twi_additional_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/twi_additiona_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_recover" />
+
+    <EditText
+        android:id="@+id/edit_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/info_start_from_block"
+        android:inputType="numberSigned"
+        app:layout_constraintStart_toEndOf="@+id/twi_from_block"
+        app:layout_constraintTop_toBottomOf="@+id/twi_additional_info" />
+
+    <TextView
+        android:id="@+id/twi_from_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/twi_from_block"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twi_additional_info" />
+
+    <TextView
+        android:id="@+id/twi_keys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/twi_keys"
+        app:layout_constraintEnd_toStartOf="@+id/edit_keys"
+        app:layout_constraintTop_toBottomOf="@+id/edit_block" />
+
+    <EditText
+        android:id="@+id/edit_keys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_keys"
+        android:inputType="numberSigned"
+        app:layout_constraintStart_toStartOf="@+id/edit_block"
+        app:layout_constraintTop_toBottomOf="@+id/edit_block" />
+
+    <Button
+        android:id="@+id/btn_to_wallet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:text="@string/btn_go_to_wallet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+        android:id="@+id/tw_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_keys" />
+
 </android.support.constraint.ConstraintLayout>

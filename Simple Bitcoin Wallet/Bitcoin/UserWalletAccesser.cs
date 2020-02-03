@@ -13,7 +13,8 @@ using Android.Widget;
 namespace Simple_Bitcoin_Wallet.Bitcoin
 {
     /// <summary>
-    /// Singleton class to access and store user wallet across activityes when app is running
+    /// Singleton class to access and store user wallet across activities when app is running
+    /// Also it is responsible for Init wallet if wallet is not initialized
     /// </summary>
     public class UserWalletAccesser
     {
@@ -34,6 +35,12 @@ namespace Simple_Bitcoin_Wallet.Bitcoin
             }
         }
 
-        public Wallet Wallet { get; set; }
+        public Wallet Wallet
+        {
+            get => wallet.Init();
+            set => wallet = value;
+        }
+
+        private Wallet wallet;
     }
 }
